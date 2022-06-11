@@ -44,7 +44,7 @@ delta = x_c/N
 for i in range(N + 1):
     contraints.append( {'type': 'ineq', 'fun': lambda a: T(delta*i,a) - Do(delta*i)} )
     # contraints.append( {'type': 'ineq', 'fun': lambda a: T_max - T(delta*i,a)} )
-result = minimize(objective_function,init_a,method='BFGS',constraints=contraints)
+result = minimize(objective_function,init_a,method='SLSQP',constraints=contraints)
 print(result)
 x = np.linspace(0,x_c,1000)
 y = []
