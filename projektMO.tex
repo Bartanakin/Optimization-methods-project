@@ -1,0 +1,90 @@
+\documentclass[12pt, letterpaper, twoside]{article}
+\usepackage[T1]{fontenc}
+\usepackage[polish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\selectlanguage{polish}
+\title{Projekt - Metody optymalizacji}
+\author{}
+\date{}
+\begin{document}
+
+\maketitle 
+
+\( T(x) = a_0 + a_1x + a_2x^2 + ... +a_nx^n \)  - przybliżenie zależno{{\' s}}ci ciągu silnika od położenia na trasie - wektor \(a = [ a_0, ... a_n ]^T\) bedziemy optymalizować. \\\\
+\centerline{\( f = C_T + C_F\)} \\
+f - funkcja kosztu \\
+\(C_T\) - koszt związany z czasem wykorzystania pojazdu \\
+\(C_F\) - koszt związany ze zużyciem paliwa \\
+
+\begin{center}
+\(C_T = t_cP_T\) \\
+\end{center}
+\(P_T\) - warto{{\' s}}ć jednostki cxasu wykorzystania pojazdu\\
+\(t_c\) - całkowity czas trwania podróży
+
+\begin{center}
+\(C_F = P_F \int_{0}^{x_c} F_c(T(x)) \,dx \) \\
+\end{center}
+
+\(P_T\) - koszt jednostki paliwa \\
+\(x_c\) - długo{{\' s}}ć trasy\\
+\(F_c\) - funkcja zużycia paliwa zależna siły ciągu \(T(x)\) wyrażona w \( \frac{k}{N m}\) \\
+Dla uproszczenia przyjmujemy zależno{{\' s}}ć ( Zazwyczaj jest to zależno{{\' s}}ć zbliżona do liniowej) \\
+\begin{center}
+ \(F_c(T(x)) = F_C T(x) \) \\
+\end{center}
+Równanie opisujące zależno{{\' s}}ć mocy silnika od warunków zewnętrznych:\\
+\begin{center}
+\( T(x) = D_a(v) + D_o(x) \) \\
+\end{center}
+\( D_a(v) \) - zależno{{\' s}}ć oporu aerodynamicznego od prędko{{\' s}}ci \\
+\( D_o(x) \) - zależno{{\' s}}ć oporów ruchu związanych z uwarunkowaniem trasy \\
+Przyjmujemy zazwyczaj \(D_a(v) = Sv^2 \) dla stałej pewnej S.
+Wtedy prędko{{\`s}}ć na pozycji x wynosi: \\
+\begin{center}
+\(v =\sqrt{\frac{T(x) - D_o(x) }{ S} } \)
+\end{center}
+Prędko{{\`s}}ć chwilowa jest pochodną pozycji po czasie: \\
+\begin{center}
+\(v =\frac{dx}{dt} \)
+\end{center}
+Po przekształceniach otrzymujemy równanie różniczkowe:
+\begin{center}
+\(\frac{dt}{dx} = \frac{\sqrt{S}}{\sqrt{T(x) - D_o(x)}} \) \\
+\end{center}
+I rozwiązujemy równanie:
+\begin{center}
+\(  t(0) + C = 0 \) \\
+\end{center}
+Wtedy:
+\begin{center}
+\(  t_c = t(x_c) + C \) \\
+\end{center}
+Ostatecznie optymalizujemy:
+\begin{center}
+\( f([a_0, ..., a_n]) = (t(x_c) + C )P_t + P_F F_C \int_{0}^{x_c}  T(x) \,dx \)\\
+\end{center}
+\begin{center}
+Ograniczenia minimalizacji:\\
+\end{center}
+a) siłą wypadkowa nie może być być ujemna:
+\begin{center}
+\(T(x) - D_o(x) > 0\)
+\end{center}
+b) siła ciągu silnika nie może przekraczać pewnej maksymalnej warto{{\`s}}ci: 
+\begin{center}
+\(T(x) <= T_{max}\)
+\end{center}
+c) inne dodatkowe, których nie będę implementować, np.: prędko{{\`s}}ć maksymalna albo minimalny ciąg cilnika. \\\\
+\begin{center}
+Implementacja ograniczeń: \\
+\end{center}
+Przyjmuję model uproszczony, tzn. wybieram listę punktów \( x_i\) \(i = 1,2...n \) i pilnuję, żeby ograniczenia były spełnione dla tych punktów. \\
+Model lepszy, ale trudniejszy do zaimplementowania, to szukanie za każdym razem punktów krytycznych funkcji ograniczeń względem x i sprawdzanie czy spełniają nierówno{{\`s}}ci.\\
+
+
+
+
+\end{document}
