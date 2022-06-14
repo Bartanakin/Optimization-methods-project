@@ -12,6 +12,9 @@
 
 \maketitle 
 
+\begin{center}
+\section*{Wyprowadzenie wzoru fukncji kosztu}
+\end{center}
 \( T(x) = a_0 + a_1x + a_2x^2 + ... +a_nx^n \)  - przybliżenie zależno{{\' s}}ci ciągu silnika od położenia na trasie - wektor \(a = [ a_0, ... a_n ]^T\) bedziemy optymalizować. \\\\
 \centerline{\( f = C_T + C_F\)} \\
 f - funkcja kosztu \\
@@ -66,24 +69,31 @@ Ostatecznie optymalizujemy:
 \begin{center}
 \( f([a_0, ..., a_n]) = (t(x_c) + C )P_t + P_F F_C \int_{0}^{x_c}  T(x) \,dx \)\\
 \end{center}
+\pagebreak
 \begin{center}
-Ograniczenia minimalizacji:\\
+\section*{Ograniczenia minimalizacji}
 \end{center}
-a) siłą wypadkowa nie może być być ujemna:
+a) siłą wypadkowa nie może być być ujemna: \\
 \begin{center}
 \(T(x) - D_o(x) > 0\)
 \end{center}
-b) siła ciągu silnika nie może przekraczać pewnej maksymalnej warto{{\`s}}ci: 
+b) siła ciągu silnika nie może przekraczać pewnej maksymalnej warto{{\`s}}ci: \\
 \begin{center}
 \(T(x) <= T_{max}\)
 \end{center}
 c) inne dodatkowe, których nie będę implementować, np.: prędko{{\`s}}ć maksymalna albo minimalny ciąg cilnika. \\\\
 \begin{center}
-Implementacja ograniczeń: \\
+\section*{Implementacja}
 \end{center}
-Przyjmuję model uproszczony, tzn. wybieram listę punktów \( x_i\) \(i = 1,2...n \) i pilnuję, żeby ograniczenia były spełnione dla tych punktów. \\
-Model lepszy, ale trudniejszy do zaimplementowania, to szukanie za każdym razem punktów krytycznych funkcji ograniczeń względem x i sprawdzanie czy spełniają nierówno{{\`s}}ci.\\
-
+Do implementacji funkcji kosztu używam kilku modułów z biblioteki \emph{scipy}:\\\\
+a)  \emph{quad} - całkowanie numeryczne do wyznaczenia \(C_F\)\\\\
+b)  \emph{odeint} - moduł rozwiązujący numercznie równania różniczkowe potrzebny do policzenia całki nieoznaczonej, której rozwiązaniem jest \(  t(x) + C \) \\\\
+c) Do implementacji ograniczeń używam funkcji \emph{minimize\_scalar} z modułu \emph{optimize\_scalar}, żeby znaleźć odpowiednio minimum i maksimum funkcji \(T(x) \) dla danego a.\\\\
+d) Do optymalizacji funkcji kosztu korzystam z metodu \emph{SLSQP} z modułu \emph{minimize}.
+Okazuje się jednak, że nie jest to dobra metoda, gdyż wykonuje działania dla całej przestrzeni, co powoduje liczenie pierwiastka z liczby ujemnej.\\
+\pagebreak
+\section*{Wnioski}
+Temat jest bardzo rozbudowany i bardziej dogłębne analizowanie go przekracza moją dotychczasową wiedzę zdobytą na studiach. W przyszło{{\`s}}ći najprawdopodobniej wrócę do tego zagadnienia.
 
 
 
